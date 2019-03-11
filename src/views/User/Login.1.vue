@@ -5,13 +5,13 @@
     </div>
     <el-form :model="loginForm" status-icon :rules="loginRules" ref="loginForm" label-width="100px" class="box-form">
       <el-form-item label="用户名" prop="username">
-        <el-input v-model="loginForm.username"></el-input>
+        <el-input v-model="username"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
-        <el-input v-model="loginForm.password" type="password" autocomplete="off"></el-input>
+        <el-input v-model="password" type="password" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="login">登录</el-button>
+        <el-button type="primary" @click="login({username, password})">登录</el-button>
       </el-form-item>
     </el-form>
   </el-card>
@@ -27,9 +27,9 @@ export default {
       if (value === '') {
         callback(new Error('请输入用户名'));
       } else {
-        if (this.loginForm.checkUser !== '') {
-          this.$refs.loginForm.validateField('checkUser');
-        }
+        // if (this.loginForm.checkUser !== '') {
+        //   this.$refs.loginForm.validateField('checkUser');
+        // }
         callback();
       }
     }
@@ -37,17 +37,17 @@ export default {
       if (value.length < 5) {
         callback(new Error('密码不少于5位'));
       } else {
-        if (this.loginForm.checkPass !== '') {
-          this.$refs.loginForm.validateField('checkPass');
-        }
+        // if (this.loginForm.checkPass !== '') {
+        //   this.$refs.loginForm.validateField('checkPass');
+        // }
         callback();
       }
     }
     return {
-      loginForm: {
+      // loginForm: {
         username: 'root',
         password: '987654'
-      },
+      ,
       loginRules: {
         username: [
           { validator: validateUsername, trigger: 'blur' }
@@ -60,28 +60,7 @@ export default {
     }
   },
   methods: {
-    login () {
-      let formData = this.loginForm
-      const loginParams = {
-        username: formData.username,
-        password: formData.password
-      }
-      axios({
-        url: '/admin/login/wyLogin',
-        method: 'POST',
-        data: loginParams
-      }).then(res => {
-        if (res.data.code === '10000') {
-          localStorage.setItem('userInfo', JSON.stringify(res.data.data))
-          this.$router.push('/dashabord')
-        } else {
-          this.$message({
-            message:  res.data.action,
-            type: 'warning'
-          })
-        }
-      })
-    },
+    ...mapActions(['login']),
     // showPwd () {
     //   if (this.pwdType === 'password') {
     //     this.pwdType = ''

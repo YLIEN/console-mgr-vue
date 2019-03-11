@@ -8,18 +8,23 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    userInfo: {
-      name: '吴宇'
-    }
+    token: '',
+    userInfo: JSON.parse(localStorage.getItem('userInfo') ? localStorage.getItem('userInfo') : '{}')
   },
   mutations: {
-    [types.SET_USER_INFO] (state, name) {
-      state.userInfo = name
-    }
+    // [types.SET_TOKEN] (state, payload) {
+    //   state.token = payload
+    // },
+    // [types.SET_USER_INFO] (state, payload) {
+    //   console.log('payload', payload, state)
+    //   state.userInfo = payload
+    //   console.log('state:', state.userInfo)
+    // }
   },
   actions: {
-    Login ({ commit }) {
-      
+    Login ({ commit }, payload) {
+      // commit(types.SET_USER_INFO, res.data.data)
+      // commit(types.SET_TOKEN, res.data.code)
     }
   }
 })

@@ -8,14 +8,33 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
+      path: '/',
+      name: 'home',
+      redirect: '/login'
+    },
+    {
       path: '/login',
       name: 'login',
       component: Login
     },
     {
-      path: '/',
+      path: '/dashabord',
       name: 'home',
-      redirect: '/login'
+      component: () => import('./components/Home.vue'),
+      meta: {
+        title: '',
+        requireAuth: true
+      },
+      children: [
+        {
+          path: '/dashabord',
+          name: '',
+          component: () => import('./views/About.vue'),
+          meta: {
+            title: ''
+          }
+        }
+      ]
     },
     {
       path: '/about',

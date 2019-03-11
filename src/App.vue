@@ -6,16 +6,15 @@
 
 <script>
 import Login from './views/User/Login'
-import UserLayouts from './views/UserLayouts/UserLayouts'
+import Home from './components/Home'
 
 export default {
   components: {
     Login,
-    UserLayouts
+    Home
   }
 }
 </script>
-
 
 <style>
 #app {
